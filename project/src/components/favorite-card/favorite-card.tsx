@@ -1,21 +1,31 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 
-function FavoriteCard(): JSX.Element {
+import { AppRoute } from '../../const';
+import { Offer } from '../../types/offers';
+import { Link } from 'react-router-dom';
+
+type FavoriteCardProps = {
+  offer: Offer;
+}
+
+function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
+  const { id, isPremium, previewImage, price, rating, type, title } = offer;
+
   return (
-    <article className="favorites__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article key={id} className="favorites__card place-card">
+      {isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image" />
-        </a>
+        <Link to={`${AppRoute.Root}${AppRoute.Property}/${id}`}>
+          <img className="place-card__image" src={`img/${previewImage}`} width="150" height="110" alt="Place image" />
+        </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;180</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
@@ -27,14 +37,14 @@ function FavoriteCard(): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '100%'}}></span>
+            <span style={{width: `${rating * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Nice, cozy, warm big bed apartment</a>
+          <Link to={`${AppRoute.Root}${AppRoute.Property}/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
