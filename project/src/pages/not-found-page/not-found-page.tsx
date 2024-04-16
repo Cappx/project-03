@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import Logo from '../../components/logo/logo';
-import Nav from '../../components/nav/nav';
-import { AppRoute } from '../../const';
 
-function NotFoundPage(): JSX.Element {
+type NotFoundPageProps = {
+  authorizationStatus: AuthorizationStatus;
+  favoritesCount: number;
+}
+
+function NotFoundPage({authorizationStatus, favoritesCount}: NotFoundPageProps): JSX.Element {
   return (
     <>
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <Logo />
-            <Nav />
-          </div>
-        </div>
-      </header>
-
+      <Header authorizationStatus={authorizationStatus} favoritesCount={favoritesCount}/>
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
@@ -29,8 +25,7 @@ function NotFoundPage(): JSX.Element {
           </section>
         </div>
       </main>
-
-      <Footer isFavorites/>
+      <Footer isFavorite/>
     </>
   );
 }
