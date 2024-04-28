@@ -22,7 +22,7 @@ function Header({authorizationStatus, favoritesCount}: HeaderProps): JSX.Element
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          {!(pathname === `${AppRoute.Root}${AppRoute.Login}`) &&
+          {pathname !== `${AppRoute.Root}${AppRoute.Login}` &&
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">

@@ -1,8 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable no-console */
-
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
@@ -10,25 +5,25 @@ import { Offer } from '../../types/offers';
 type PlaceCardProps = {
   offer: Offer;
   nearby: boolean;
-  setPlaceCardHoverHandler: Function;
+  onPlaceCardHover: (id: number | null) => void;
 }
 
-function PlaceCard({offer, nearby, setPlaceCardHoverHandler}: PlaceCardProps): JSX.Element {
+function PlaceCard({offer, nearby, onPlaceCardHover}: PlaceCardProps): JSX.Element {
   const { id, isPremium, previewImage, price, isFavorite, rating, type, title } = offer;
 
   return (
     <article
       className={`${nearby ? 'near-places__card' : 'cities__place-card'} place-card`}
-      onMouseOver={() => setPlaceCardHoverHandler(id)}
-      // onMouseOut={() => setPlaceCardHoverHandler(null)}
+      onMouseEnter={() => onPlaceCardHover(id)}
+      onMouseLeave={() => onPlaceCardHover(null)}
     >
       {isPremium &&
-          <div className="place-card__mark">
-            <span>Premium</span>
-          </div>}
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Root}${AppRoute.Property}/${id}`}>
-          <img className="place-card__image" src={`img/${previewImage}`} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={`img/${previewImage}`} width="260" height="200" alt={`Place: ${title}`} />
         </Link>
       </div>
       <div className="place-card__info">

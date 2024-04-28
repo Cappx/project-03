@@ -1,26 +1,21 @@
-/* eslint-disable no-console */
-
-import { useState } from 'react';
 import { Offers } from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
 type PlaceCardListProps = {
-  offers: Offers;
+  cityOffers: Offers;
   nearby: boolean;
+  onPlaceCardHover: (placeCardId: number | null) => void;
 }
 
-function PlaceCardList({offers, nearby}: PlaceCardListProps): JSX.Element {
-  const [placeCardHover, setPlaceCardHover] = useState(null);
-  console.log(placeCardHover);
-
+function PlaceCardList({cityOffers, nearby, onPlaceCardHover}: PlaceCardListProps): JSX.Element {
   return (
     <div className={`${nearby ? 'near-places__list' : 'cities__places-list tabs__content'} places__list`}>
-      {offers.map((offer) => (
+      {cityOffers.map((offer) => (
         <PlaceCard
           offer={offer}
           key={offer.id}
           nearby={nearby}
-          setPlaceCardHoverHandler={setPlaceCardHover}
+          onPlaceCardHover={onPlaceCardHover}
         />
       ))}
     </div>
@@ -29,5 +24,3 @@ function PlaceCardList({offers, nearby}: PlaceCardListProps): JSX.Element {
 
 export default PlaceCardList;
 
-// onMouseOver={({target}: MouseEventHandler<HTMLDivElement>)}
-// onMouseOver={({target}: React.MouseEvent<Element>) => console.log(target)}

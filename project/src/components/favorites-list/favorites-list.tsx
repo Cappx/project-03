@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 
 import { Link } from 'react-router-dom';
-import { Setting } from '../../const';
+import { CITIES } from '../../const';
 import { Offers } from '../../types/offers';
 import FavoriteCard from '../favorite-card/favorite-card';
 
@@ -11,7 +10,7 @@ type FavoritesListProps = {
 }
 
 function FavoritesList({favoritesList}: FavoritesListProps): JSX.Element {
-  const favoritesListFiltered = Setting.CITIES
+  const favoritesListFiltered = CITIES
     .map((el) => favoritesList.filter((item) => el === item.city.name))
     .filter((el) => el.length);
   console.log(favoritesListFiltered);

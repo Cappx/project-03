@@ -1,8 +1,8 @@
-import Footer from '../../components/footer/footer';
 import { Offers } from '../../types/offers';
-import FavoritesList from '../../components/favorites-list/favorites-list';
 import { AuthorizationStatus } from '../../const';
 import Header from '../../components/header/header';
+import FavoritesList from '../../components/favorites-list/favorites-list';
+import Footer from '../../components/footer/footer';
 
 type FavoritesPageProps = {
   offers: Offers;
@@ -10,7 +10,7 @@ type FavoritesPageProps = {
   favoritesCount: number;
 }
 
-function FavotitesPage({offers, authorizationStatus, favoritesCount}: FavoritesPageProps): JSX.Element {
+function FavoritesPage({offers, authorizationStatus, favoritesCount}: FavoritesPageProps): JSX.Element {
   const placeFavorites = offers.filter((el) => el.isFavorite);
   const isFavorite = Boolean(placeFavorites.length);
 
@@ -37,4 +37,4 @@ function FavotitesPage({offers, authorizationStatus, favoritesCount}: FavoritesP
   );
 }
 
-export default FavotitesPage;
+export default FavoritesPage;

@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
+import { Link } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Header from '../../components/header/header';
-import { AuthorizationStatus } from '../../const';
 
 type LoginPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -30,9 +29,9 @@ function LoginPage({authorizationStatus, favoritesCount}: LoginPageProps): JSX.E
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to={AppRoute.Root}>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

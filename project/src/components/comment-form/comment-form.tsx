@@ -45,8 +45,6 @@ function CommentForm({onComment}: CommentFormProp): JSX.Element {
   const [userRatings, setUserRatings] = useState(userRatingData);
   const [userComment, setUserComment] = useState(userCommentData);
   const userRating = userRatings.filter((el) => el.checked)[0] || null;
-
-  // let isSubmitComment: boolean;
   const isSubmitComment = !(userComment.comment.length > MIN_COMMENT_LENGTH && userRating !== null);
   // console.log(userComment);
   // console.log(userRating);
