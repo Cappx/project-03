@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offers';
 import { Link } from 'react-router-dom';
@@ -19,7 +17,7 @@ function FavoriteCard({offer}: FavoriteCardProps): JSX.Element {
         </div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Root}${AppRoute.Property}/${id}`}>
-          <img className="place-card__image" src={`img/${previewImage}`} width="150" height="110" alt="Place image" />
+          <img className="place-card__image" src={`img/${previewImage}`} width="150" height="110" alt={`Place: ${title}`} />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

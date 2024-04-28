@@ -7,9 +7,9 @@ export const offers: Offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 170.33,
-        longitude: 123.83,
-        zoom: 2,
+        latitude: 50.8504500,
+        longitude: 4.3487800,
+        zoom: 10,
       },
       name: 'Brussels',
     },
@@ -26,8 +26,8 @@ export const offers: Offers = [
     isFavorite: false,
     isPremium: true,
     location: {
-      latitude: 152.44,
-      longitude: 154.29,
+      latitude: 50.8504500,
+      longitude: 4.3487800,
       zoom: 2,
     },
     maxAdults: 3,
@@ -41,9 +41,9 @@ export const offers: Offers = [
     bedrooms: 3,
     city: {
       location: {
-        latitude: 170.33,
-        longitude: 123.83,
-        zoom: 2,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
       },
       name: 'Amsterdam',
     },
@@ -60,8 +60,8 @@ export const offers: Offers = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 152.44,
-      longitude: 154.29,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 2,
     },
     maxAdults: 3,
@@ -75,9 +75,9 @@ export const offers: Offers = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 170.33,
-        longitude: 123.83,
-        zoom: 2,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
       },
       name: 'Amsterdam',
     },
@@ -94,8 +94,8 @@ export const offers: Offers = [
     isFavorite: true,
     isPremium: false,
     location: {
-      latitude: 152.44,
-      longitude: 154.29,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 2,
     },
     maxAdults: 3,
@@ -109,9 +109,9 @@ export const offers: Offers = [
     bedrooms: 5,
     city: {
       location: {
-        latitude: 120.33,
-        longitude: 173.83,
-        zoom: 2,
+        latitude: 53.55073,
+        longitude: 9.99302,
+        zoom: 10,
       },
       name: 'Hamburg',
     },
@@ -128,8 +128,8 @@ export const offers: Offers = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 122.44,
-      longitude: 114.29,
+      latitude: 53.55073,
+      longitude: 9.99302,
       zoom: 2,
     },
     maxAdults: 6,
@@ -143,11 +143,11 @@ export const offers: Offers = [
     bedrooms: 1,
     city: {
       location: {
-        latitude: 120.33,
-        longitude: 173.83,
-        zoom: 2,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
       },
-      name: 'Brussels',
+      name: 'Amsterdam',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Brussels.',
     goods: ['Wi-Fi','Washing machine','Towels','Heating','Coffee machine'],
@@ -162,8 +162,8 @@ export const offers: Offers = [
     isFavorite: true,
     isPremium: true,
     location: {
-      latitude: 122.44,
-      longitude: 114.29,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 2,
     },
     maxAdults: 6,

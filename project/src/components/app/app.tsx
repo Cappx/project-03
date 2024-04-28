@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import MainPage from '../../pages/main-page/main-page';
-import FavotitesPage from '../../pages/favorites-page/favorites-page';
+import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
@@ -19,7 +18,7 @@ type AppProps = {
 
 function App({cardCount, offers, reviews}: AppProps): JSX.Element {
   const authorizationStatus = AuthorizationStatus.Auth;
-  const favoritesCount = offers.filter((el) => el.isFavorite).length;
+  const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
 
   return (
     <BrowserRouter>
@@ -48,7 +47,7 @@ function App({cardCount, offers, reviews}: AppProps): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <FavotitesPage
+              <FavoritesPage
                 offers={offers}
                 authorizationStatus={authorizationStatus}
                 favoritesCount={favoritesCount}
