@@ -9,7 +9,7 @@ type FavoritesListProps = {
   favoritesList: Offers;
 }
 
-function FavoritesList({favoritesList}: FavoritesListProps): JSX.Element {
+export default function FavoritesList({favoritesList}: FavoritesListProps): JSX.Element {
   const favoritesListFiltered = CITIES
     .map((el) => favoritesList.filter((item) => el === item.city.name))
     .filter((el) => el.length);
@@ -40,5 +40,3 @@ function FavoritesList({favoritesList}: FavoritesListProps): JSX.Element {
     </section>
   );
 }
-
-export default FavoritesList;

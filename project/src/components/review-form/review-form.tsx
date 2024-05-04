@@ -41,13 +41,12 @@ type CommentFormProp = {
   onComment: (submitComment: Comment) => void;
 }
 
-function CommentForm({onComment}: CommentFormProp): JSX.Element {
+export default function ReviewForm({onComment}: CommentFormProp): JSX.Element {
   const [userRatings, setUserRatings] = useState(userRatingData);
   const [userComment, setUserComment] = useState(userCommentData);
+
   const userRating = userRatings.filter((el) => el.checked)[0] || null;
-  const isSubmitComment = !(userComment.comment.length > MIN_COMMENT_LENGTH && userRating !== null);
-  // console.log(userComment);
-  // console.log(userRating);
+  const isSubmitButton = !(userComment.comment.length > MIN_COMMENT_LENGTH && userRating !== null);
 
   return (
     <form className="reviews__form form"
@@ -64,7 +63,10 @@ function CommentForm({onComment}: CommentFormProp): JSX.Element {
           const key = `${idx}-rating`;
           return (
             <Fragment key={key}>
-              <input className="form__rating-input visually-hidden" name="rating" type="radio"
+              <input
+                className="form__rating-input visually-hidden"
+                name="rating"
+                type="radio"
                 value={star.value}
                 id={`${star.value}-stars`}
                 checked={star.checked}
@@ -82,7 +84,11 @@ function CommentForm({onComment}: CommentFormProp): JSX.Element {
           );
         })}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
         value={userComment.comment}
         onChange={({target}: ChangeEvent<HTMLTextAreaElement>) => {
           const currentComment = ({...userComment, comment: target.value});
@@ -94,10 +100,8 @@ function CommentForm({onComment}: CommentFormProp): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_COMMENT_LENGTH} characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitComment}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButton}>Submit</button>
       </div>
     </form>
   );
 }
-
-export default CommentForm;

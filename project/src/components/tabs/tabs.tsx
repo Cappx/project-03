@@ -1,15 +1,12 @@
-/* eslint-disable no-console */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
 import { Link } from 'react-router-dom';
 import { CITIES } from '../../const';
 
 type TabsProps = {
-  activeTab: string;
-  onActiveTab: (city: string) => void;
+  activeCityTab: string;
+  onActiveCityTab: (city: string) => void;
 }
 
-function Tabs({activeTab, onActiveTab}: TabsProps): JSX.Element {
+export default function Tabs({activeCityTab, onActiveCityTab}: TabsProps): JSX.Element {
   return (
     <div className="tabs">
       <section className="locations container">
@@ -17,8 +14,8 @@ function Tabs({activeTab, onActiveTab}: TabsProps): JSX.Element {
           {CITIES.map((city, idx) => {
             const key = `${idx}-city`;
             return (
-              <li key={key} className="locations__item" onClick={() => onActiveTab(city)}>
-                <Link className={`locations__item-link tabs__item ${activeTab === city ? 'tabs__item--active' : ''}`}
+              <li key={key} className="locations__item" onClick={() => onActiveCityTab(city)}>
+                <Link className={`locations__item-link tabs__item ${activeCityTab === city ? 'tabs__item--active' : ''}`}
                   to="#"
                 >
                   <span>{city}</span>
@@ -31,5 +28,3 @@ function Tabs({activeTab, onActiveTab}: TabsProps): JSX.Element {
     </div>
   );
 }
-
-export default Tabs;

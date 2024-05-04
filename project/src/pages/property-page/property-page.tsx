@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
-
-import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offer, Offers } from '../../types/offers';
+import { Offers } from '../../types/offers';
 import { Reviews } from '../../types/reviews';
 import { Comment } from '../../types/comments';
-import { AuthorizationStatus} from '../../const';
-import CommentForm from '../../components/comment-form/comment-form';
-import PlaceCardList from '../../components/place-card-list/place-card-list';
+import { AuthorizationStatus, PageType} from '../../const';
+import Map from '../../components/map/map';
+import ReviewForm from '../../components/review-form/review-form';
 import Header from '../../components/header/header';
 import NotFoundPage from '../not-found-page/not-found-page';
+import ReviewList from '../../components/review-list/review-list';
+import CardList from '../../components/card-list/card-list';
 
 const NEARBY_CARD_COUNT = 3;
 
@@ -22,30 +20,31 @@ type PlaceCardProps = {
   onComment: (submitComment: Comment) => void;
 }
 
-function PropertyPage({offers, reviews, authorizationStatus, favoritesCount, onComment}: PlaceCardProps): JSX.Element {
+export default function PropertyPage({offers, reviews, authorizationStatus, favoritesCount, onComment}: PlaceCardProps): JSX.Element {
   const params = useParams();
-  const [selectedCard, setSelectedCard] = useState<Offer | undefined>(undefined);
 
   if (!offers.length) {
     return <NotFoundPage authorizationStatus={authorizationStatus} favoritesCount={favoritesCount} />;
   }
 
   const offer = offers.filter((el) => el.id === Number(params.id))[0];
+  const offerReviews = reviews.filter((el) => el.id === Number(params.id));
   const { isPremium, price, isFavorite, rating, type, title, bedrooms, maxAdults, goods, host } = offer;
-  const placeReviews = reviews.filter((el) => el.id === Number(params.id));
-  console.log(offers);
 
-  const placesNearby = offers
-    .filter((el) => el.city.name === offer.city.name && el.id !== offer.id)
+  const cityOffers = offers
+    .filter((el) => el.city.name === offer.city.name);
+
+  const placesNearby = cityOffers
+    .filter((el) => el.id !== offer.id)
     .slice(0, NEARBY_CARD_COUNT);
-  console.log(placesNearby);
 
-  // console.log(offer);
-  // console.log(placeReviews);
-
-  const onPlaceCardHover = (placeCardId: number | null) => {
-    const currentPlaceCard = offers.find((cityOffer) => cityOffer.id === placeCardId);
-    setSelectedCard(currentPlaceCard);
+  const handleScrollTop = () => {
+    let i = 1800;
+    const int = setInterval(() => {
+      window.scrollTo(0, i);
+      i -= 180;
+      if (i < 0) {clearInterval(int);}
+    }, 10);
   };
 
   return (
@@ -122,48 +121,35 @@ function PropertyPage({offers, reviews, authorizationStatus, favoritesCount, onC
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot;
-                  <span className="reviews__amount">{placeReviews.length}</span>
+                  <span className="reviews__amount">{offerReviews.length}</span>
                 </h2>
-                <ul className="reviews__list">
-                  {placeReviews.map((review, idx) => {
-                    const key = `${idx}-review`;
-                    return (
-                      <li key={key} className="reviews__item">
-                        <div className="reviews__user user">
-                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                            <img className="reviews__avatar user__avatar" src={`img/${review.user.avatarUrl}`} width="54" height="54" alt="Reviews avatar" />
-                          </div>
-                          <span className="reviews__user-name">{review.user.name}</span>
-                        </div>
-                        <div className="reviews__info">
-                          <div className="reviews__rating rating">
-                            <div className="reviews__stars rating__stars">
-                              <span style={{width: `${rating * 20}%`}}></span>
-                              <span className="visually-hidden">{review.rating}</span>
-                            </div>
-                          </div>
-                          <p className="reviews__text">{review.comment}</p>
-                          <time className="reviews__time" dateTime={review.date}>{`${new Date(review.date).toLocaleString('en-us', {month: 'long'})} ${new Date(review.date).getFullYear()}`}</time>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-                {authorizationStatus === AuthorizationStatus.Auth && <CommentForm onComment={onComment} />}
+                <ReviewList
+                  offerReviews={offerReviews}
+                  rating={rating}
+                />
+                {authorizationStatus === AuthorizationStatus.Auth &&
+                  <ReviewForm onComment={onComment} />}
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map
+            cityOffers={cityOffers}
+            currentOffer={offer}
+            pageType={PageType.Property}
+          />
         </section>
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlaceCardList cityOffers={placesNearby} nearby onPlaceCardHover={onPlaceCardHover}/>
-          </section>
-        </div>
+        {placesNearby.length > 1 &&
+          <div className="container">
+            <section className="near-places places">
+              <h2 className="near-places__title">Other places in the neighbourhood</h2>
+              <CardList
+                placesNearby={placesNearby}
+                onScrollTop={handleScrollTop}
+                pageType={PageType.Property}
+              />
+            </section>
+          </div>}
       </main>
     </div>
   );
 }
-
-export default PropertyPage;

@@ -2,25 +2,29 @@ import { Offers } from '../../types/offers';
 import PlaceCard from '../place-card/place-card';
 
 type PlaceCardListProps = {
-  cityOffers: Offers;
-  nearby: boolean;
-  onPlaceCardHover: (placeCardId: number | null) => void;
+  cityOffers?: Offers;
+  onPlaceCardHover?: (placeCardId: number | null) => void;
 }
 
-function PlaceCardList({cityOffers, nearby, onPlaceCardHover}: PlaceCardListProps): JSX.Element {
+export default function PlaceCardList({cityOffers, onPlaceCardHover}: PlaceCardListProps): JSX.Element {
+
+  if (!cityOffers) {
+    cityOffers = [];
+  }
+
   return (
-    <div className={`${nearby ? 'near-places__list' : 'cities__places-list tabs__content'} places__list`}>
-      {cityOffers.map((offer) => (
-        <PlaceCard
-          offer={offer}
-          key={offer.id}
-          nearby={nearby}
-          onPlaceCardHover={onPlaceCardHover}
-        />
-      ))}
+    <div className={'cities__places-list tabs__content places__list'}>
+      {cityOffers.map((offer, idx) => {
+        const key = `${idx}-card`;
+        return (
+          <PlaceCard
+            key={key}
+            offer={offer}
+            onPlaceCardHover={onPlaceCardHover}
+          />
+        );
+      })}
     </div>
   );
 }
-
-export default PlaceCardList;
 
