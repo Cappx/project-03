@@ -7,7 +7,7 @@ type LoginPageProps = {
   favoritesCount: number;
 }
 
-function LoginPage({authorizationStatus, favoritesCount}: LoginPageProps): JSX.Element {
+export default function LoginPage({authorizationStatus, favoritesCount}: LoginPageProps): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <Header authorizationStatus={authorizationStatus} favoritesCount={favoritesCount}/>
@@ -39,5 +39,3 @@ function LoginPage({authorizationStatus, favoritesCount}: LoginPageProps): JSX.E
     </div>
   );
 }
-
-export default LoginPage;

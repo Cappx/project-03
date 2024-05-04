@@ -8,7 +8,7 @@ type NotFoundPageProps = {
   favoritesCount: number;
 }
 
-function NotFoundPage({authorizationStatus, favoritesCount}: NotFoundPageProps): JSX.Element {
+export default function NotFoundPage({authorizationStatus, favoritesCount}: NotFoundPageProps): JSX.Element {
   return (
     <>
       <Header authorizationStatus={authorizationStatus} favoritesCount={favoritesCount}/>
@@ -29,5 +29,3 @@ function NotFoundPage({authorizationStatus, favoritesCount}: NotFoundPageProps):
     </>
   );
 }
-
-export default NotFoundPage;

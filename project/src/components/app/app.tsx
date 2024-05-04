@@ -1,14 +1,14 @@
-/* eslint-disable no-console */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offers } from '../../types/offers';
+import { Reviews } from '../../types/reviews';
 import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import { Offers } from '../../types/offers';
-import { Reviews } from '../../types/reviews';
+// import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 type AppProps = {
   cardCount: number;
@@ -16,12 +16,13 @@ type AppProps = {
   reviews: Reviews;
 }
 
-function App({cardCount, offers, reviews}: AppProps): JSX.Element {
+export default function App({cardCount, offers, reviews}: AppProps): JSX.Element {
   const authorizationStatus = AuthorizationStatus.Auth;
   const favoritesCount = offers.filter((offer) => offer.isFavorite).length;
 
   return (
     <BrowserRouter>
+      {/* <ScrollToTop /> */}
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -84,5 +85,3 @@ function App({cardCount, offers, reviews}: AppProps): JSX.Element {
     </BrowserRouter>
   );
 }
-
-export default App;

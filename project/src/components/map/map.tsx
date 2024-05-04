@@ -1,15 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { Offers } from '../../types/offers';
+import { Offer, Offers } from '../../types/offers';
 import { Icon, Marker } from 'leaflet';
-import { MapType, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
+import { PageType, URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
-
-type MapProps = {
-  cityOffers: Offers;
-  selectedCardId: number | null;
-  mapType: MapType;
-}
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -23,38 +17,54 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({cityOffers, mapType, selectedCardId}: MapProps): JSX.Element {
-  const currentCity = cityOffers[0].city.location;
+type MapProps = {
+  cityOffers: Offers;
+  selectedCardId?: number | null;
+  currentOffer?: Offer | null;
+  pageType: PageType;
+}
+
+export default function Map({cityOffers, selectedCardId, currentOffer, pageType}: MapProps): JSX.Element {
+  const currentCityLocation = cityOffers[0].city.location;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, currentCity);
+  const map = useMap(mapRef, currentCityLocation);
 
   useEffect(() => {
     if (map) {
-      cityOffers.forEach((point) => {
+      cityOffers.forEach(({id, location}) => {
         const marker = new Marker({
-          lat: point.location.latitude,
-          lng: point.location.longitude
+          lat: location.latitude,
+          lng: location.longitude
         });
 
         marker
           .setIcon(
-            selectedCardId !== undefined && point.id === selectedCardId
+            selectedCardId !== null && selectedCardId === id
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(map);
       });
+
+      if (currentOffer) {
+        const currentOfferMarker = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude
+        });
+
+        currentOfferMarker
+          .setIcon(currentCustomIcon)
+          .addTo(map);
+      }
     }
-  }, [map, cityOffers, selectedCardId]);
+  }, [map, cityOffers, selectedCardId, currentOffer]);
 
 
   return (
     <section
-      className={`${mapType}__map map`}
+      className={`${pageType}__map map`}
       ref={mapRef}
     >
     </section>
   );
 }
-
-export default Map;

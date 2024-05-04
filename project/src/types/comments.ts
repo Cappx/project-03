@@ -4,8 +4,8 @@ rating: number;
 }
 
 export type Rating = {
-  title: string;
   value: number;
+  title: string;
   checked: boolean;
 }
 

@@ -10,12 +10,12 @@ type FavoritesPageProps = {
   favoritesCount: number;
 }
 
-function FavoritesPage({offers, authorizationStatus, favoritesCount}: FavoritesPageProps): JSX.Element {
+export default function FavoritesPage({offers, authorizationStatus, favoritesCount}: FavoritesPageProps): JSX.Element {
   const placeFavorites = offers.filter((el) => el.isFavorite);
   const isFavorite = Boolean(placeFavorites.length);
 
   return (
-    <div className={`page ${isFavorite ? '' : 'page--favorites-empty'}`}>
+    <div className={`page${isFavorite ? '' : 'page--favorites-empty'}`}>
       <Header authorizationStatus={authorizationStatus} favoritesCount={favoritesCount}/>
       <main className={`page__main page__main--favorites ${isFavorite ? '' : 'page__main--favorites-empty'}`}>
         <div className="page__favorites-container container">
@@ -32,9 +32,7 @@ function FavoritesPage({offers, authorizationStatus, favoritesCount}: FavoritesP
             </section>}
         </div>
       </main>
-      <Footer isFavorite={isFavorite} />
+      <Footer isFavorite />
     </div>
   );
 }
-
-export default FavoritesPage;

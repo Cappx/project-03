@@ -6,7 +6,7 @@ type HeaderProps = {
   favoritesCount: number;
 }
 
-function Header({authorizationStatus, favoritesCount}: HeaderProps): JSX.Element {
+export default function Header({authorizationStatus, favoritesCount}: HeaderProps): JSX.Element {
   const { pathname } = useLocation();
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -55,5 +55,3 @@ function Header({authorizationStatus, favoritesCount}: HeaderProps): JSX.Element
     </header>
   );
 }
-
-export default Header;
